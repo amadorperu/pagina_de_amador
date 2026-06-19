@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amador — Employee Experience</title>
+<meta name="description" content="Amador diseña experiencias de empleado que las personas aman: cultura, talento, bienestar y felicidad en el trabajo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#241023;
+    --ink-soft:#5a4a55;
+    --blush:#FFF1EC;
+    --cream:#FFFBF8;
+    --coral:#FF5D5D;
+    --apricot:#F5A623;
+    --sage:#3FA98A;
+    --rosa:#E85D8E;
+    --line:rgba(36,16,35,.10);
+    /* pilar activo (cambia con JS) */
+    --accent:#FF5D5D;
+    --accent-soft:#FFE3DE;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;line-height:1.02;letter-spacing:-.02em}
+  em{font-family:'Fraunces',serif;font-style:italic;font-weight:500;letter-spacing:0}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+  .eyebrow{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600;color:var(--accent);transition:color .5s ease}
+
+  /* ---------- NAV ---------- */
+  header{position:sticky;top:0;z-index:50;background:rgba(255,251,248,.82);backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .3s}
+  header.scrolled{border-color:var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:78px}
+  .brand{display:flex;align-items:center;gap:11px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1.45rem;letter-spacing:-.03em}
+  .mark{width:34px;height:34px;border-radius:50% 50% 50% 4px;background:linear-gradient(135deg,var(--coral),var(--apricot));display:grid;place-items:center;color:#fff;font-size:1rem;transform:rotate(-6deg)}
+  .menu{display:flex;align-items:center;gap:34px;list-style:none}
+  .menu a{font-size:.93rem;font-weight:500;color:var(--ink-soft);position:relative;padding:4px 0;transition:color .2s}
+  .menu a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:0;background:var(--coral);transition:width .28s ease}
+  .menu a:hover{color:var(--ink)}
+  .menu a:hover::after{width:100%}
+  .wa-btn{display:inline-flex;align-items:center;gap:9px;background:var(--ink);color:var(--cream);padding:11px 20px;border-radius:100px;font-weight:600;font-size:.9rem;transition:transform .2s,background .2s}
+  .wa-btn:hover{transform:translateY(-2px);background:#3a1b38}
+  .wa-btn svg{width:17px;height:17px}
+  .burger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:8px}
+  .burger span{width:26px;height:2.5px;background:var(--ink);border-radius:3px;transition:.3s}
+  .burger.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+  .burger.open span:nth-child(2){opacity:0}
+  .burger.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+
+  /* mobile overlay */
+  .overlay{position:fixed;inset:0;background:var(--blush);z-index:45;transform:translateX(100%);transition:transform .4s cubic-bezier(.7,0,.2,1);display:flex;flex-direction:column;justify-content:center;padding:0 32px;gap:6px}
+  .overlay.open{transform:translateX(0)}
+  .overlay a{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:2.2rem;letter-spacing:-.02em;padding:12px 0;border-bottom:1px solid var(--line)}
+  .overlay .wa-btn{font-size:1.05rem;margin-top:24px;align-self:flex-start}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;padding:90px 0 70px;overflow:hidden}
+  .blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.5;z-index:0;animation:drift 16s ease-in-out infinite alternate}
+  .blob.a{width:460px;height:460px;background:var(--coral);top:-120px;right:-80px}
+  .blob.b{width:380px;height:380px;background:var(--apricot);bottom:-140px;left:-100px;animation-delay:-6s}
+  @keyframes drift{to{transform:translate(40px,30px) scale(1.12)}}
+  .hero .wrap{position:relative;z-index:1}
+  .hero h1{font-size:clamp(2.7rem,7vw,5.4rem);max-width:14ch}
+  .hero h1 .grad{background:linear-gradient(105deg,var(--coral),var(--rosa) 55%,var(--apricot));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p.lead{font-size:clamp(1.05rem,2vw,1.3rem);color:var(--ink-soft);max-width:54ch;margin:28px 0 36px}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+  .ghost{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:100px;border:1.5px solid var(--ink);font-weight:600;font-size:.95rem;transition:.2s}
+  .ghost:hover{background:var(--ink);color:var(--cream)}
+  .wa-big{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(120deg,var(--coral),var(--apricot));color:#fff;padding:14px 28px;border-radius:100px;font-weight:600;font-size:.98rem;box-shadow:0 10px 30px -10px rgba(255,93,93,.7);transition:transform .2s}
+  .wa-big:hover{transform:translateY(-3px)}
+  .wa-big svg{width:20px;height:20px}
+
+  .ticker{margin-top:60px;display:flex;flex-wrap:wrap;gap:14px 40px;align-items:center;color:var(--ink-soft);font-size:.92rem;border-top:1px solid var(--line);padding-top:26px}
+  .ticker b{font-family:'Bricolage Grotesque',sans-serif;color:var(--ink);font-size:1.55rem;margin-right:8px}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:96px 0}
+  .sec-head{max-width:60ch}
+  .sec-head h2{font-size:clamp(2rem,4.5vw,3.3rem);margin:14px 0 16px}
+  .sec-head p{color:var(--ink-soft);font-size:1.08rem}
+
+  /* PILARES — interactive signature */
+  #pilares{background:var(--blush)}
+  .pillars{display:grid;grid-template-columns:.85fr 1.15fr;gap:48px;margin-top:54px;align-items:start}
+  .ptabs{display:flex;flex-direction:column;gap:10px}
+  .ptab{display:flex;align-items:center;gap:16px;width:100%;text-align:left;background:transparent;border:1px solid var(--line);border-radius:18px;padding:18px 20px;cursor:pointer;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:1.25rem;color:var(--ink);transition:.25s}
+  .ptab .num{font-size:.78rem;font-family:'Inter';color:var(--ink-soft);font-weight:600}
+  .ptab .dot{width:13px;height:13px;border-radius:50%;flex-shrink:0;transition:transform .25s}
+  .ptab[data-p="cultura"] .dot{background:var(--coral)}
+  .ptab[data-p="talento"] .dot{background:var(--apricot)}
+  .ptab[data-p="bienestar"] .dot{background:var(--sage)}
+  .ptab[data-p="felicidad"] .dot{background:var(--rosa)}
+  .ptab:hover{background:#fff}
+  .ptab.active{background:#fff;border-color:var(--accent);box-shadow:0 14px 34px -18px rgba(36,16,35,.4)}
+  .ptab.active .dot{transform:scale(1.5)}
+
+  .ppanel{background:#fff;border-radius:26px;padding:44px;min-height:380px;position:relative;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 60px -40px rgba(36,16,35,.5)}
+  .ppanel::before{content:"";position:absolute;inset:0;background:var(--accent-soft);opacity:.6;z-index:0;transition:background .5s}
+  .ppanel-in{position:relative;z-index:1}
+  .ppanel .big{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(2.4rem,5vw,3.6rem);color:var(--accent);letter-spacing:-.03em;transition:color .5s}
+  .ppanel h3{font-size:1.7rem;margin:6px 0 16px}
+  .ppanel p{color:var(--ink-soft);font-size:1.06rem;max-width:46ch}
+  .ppanel ul{list-style:none;margin-top:26px;display:flex;flex-wrap:wrap;gap:10px}
+  .ppanel li{font-size:.86rem;font-weight:500;background:#fff;border:1px solid var(--line);padding:8px 15px;border-radius:100px}
+  .fade{animation:fade .45s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+  /* EXPERIENCE band */
+  #experiencia{background:var(--ink);color:var(--cream)}
+  #experiencia .eyebrow{color:var(--apricot)}
+  #experiencia h2{font-size:clamp(2.1rem,5vw,3.6rem);max-width:18ch;margin:14px 0 0}
+  #experiencia h2 em{color:var(--apricot)}
+  .xx{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:60px}
+  .xcard{border:1px solid rgba(255,255,255,.14);border-radius:22px;padding:32px;transition:.3s}
+  .xcard:hover{background:rgba(255,255,255,.05);transform:translateY(-4px)}
+  .xcard .step{font-family:'Fraunces';font-style:italic;color:var(--apricot);font-size:1.1rem}
+  .xcard h3{font-size:1.45rem;margin:10px 0 12px}
+  .xcard p{color:rgba(255,241,236,.72);font-size:.98rem}
+
+  /* CONTACT */
+  #contacto{text-align:center}
+  #contacto .wrap{max-width:760px}
+  #contacto h2{font-size:clamp(2.2rem,5.5vw,4rem);margin:16px 0 18px}
+  #contacto h2 em{color:var(--coral)}
+  #contacto p{color:var(--ink-soft);font-size:1.12rem;margin-bottom:38px}
+  .socials{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:46px}
+  .soc{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);color:var(--ink);transition:.25s}
+  .soc:hover{transform:translateY(-4px);background:var(--ink);color:var(--cream);border-color:var(--ink)}
+  .soc svg{width:21px;height:21px}
+
+  /* FOOTER */
+  footer{background:var(--blush);padding:54px 0 40px;border-top:1px solid var(--line)}
+  .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;align-items:center}
+  .foot .brand{font-size:1.3rem}
+  .foot-links{display:flex;flex-wrap:wrap;gap:22px;font-size:.9rem;color:var(--ink-soft)}
+  .foot-links a:hover{color:var(--ink)}
+  .copy{margin-top:34px;font-size:.82rem;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:24px}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:860px){
+    .menu,.nav .wa-btn{display:none}
+    .burger{display:flex}
+    .pillars{grid-template-columns:1fr;gap:28px}
+    .xx{grid-template-columns:1fr}
+    section{padding:72px 0}
+    .ppanel{padding:32px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;scroll-behavior:auto}
+    .reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header id="top">
+  <div class="wrap nav">
+    <a href="#top" class="brand"><span class="mark">♡</span>Amador</a>
+    <ul class="menu">
+      <li><a href="#pilares">Servicios</a></li>
+      <li><a href="#experiencia">Experiencia</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <a class="wa-btn" href="https://wa.me/51946846598" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.515 5.26l-.999 3.648 3.973-1.607zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+      Hablemos
+    </a>
+    <button class="burger" id="burger" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<nav class="overlay" id="overlay" aria-hidden="true">
+  <a href="#pilares">Servicios</a>
+  <a href="#experiencia">Experiencia</a>
+  <a href="#contacto">Contacto</a>
+  <a class="wa-btn" href="https://wa.me/51946846598" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <span class="blob a"></span>
+  <span class="blob b"></span>
+  <div class="wrap">
+    <span class="eyebrow">Employee Experience</span>
+    <h1>Hacemos que las personas <span class="grad">amen</span> su trabajo.</h1>
+    <p class="lead">En Amador diseñamos cada momento de la experiencia del empleado —desde el primer día hasta el último— para que tu gente quiera quedarse, crecer y dar lo mejor. <em>Cultura, talento, bienestar y felicidad</em>, trabajados como un solo sistema.</p>
+    <div class="hero-cta">
+      <a class="wa-big" href="https://wa.me/51946846598" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.515 5.26l-.999 3.648 3.973-1.607zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        Conversemos por WhatsApp
+      </a>
+      <a class="ghost" href="#pilares">Ver lo que hacemos →</a>
+    </div>
+    <div class="ticker">
+      <span><b>4</b> pilares integrados</span>
+      <span><b>1</b> experiencia coherente</span>
+      <span><b>+</b> equipos que sí se quedan</span>
+    </div>
+  </div>
+</section>
+
+<!-- PILARES -->
+<section id="pilares">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Servicios</span>
+      <h2>Cuatro pilares, una sola experiencia.</h2>
+      <p>No vendemos talleres sueltos. Conectamos cultura, talento, bienestar y felicidad para que cada parte refuerce a la otra. Elige un pilar para ver cómo trabajamos.</p>
+    </div>
+
+    <div class="pillars reveal">
+      <div class="ptabs" role="tablist" aria-label="Pilares de servicio">
+        <button class="ptab active" data-p="cultura" role="tab" aria-selected="true"><span class="dot"></span><span>Cultura</span><span class="num">01</span></button>
+        <button class="ptab" data-p="talento" role="tab" aria-selected="false"><span class="dot"></span><span>Talento</span><span class="num">02</span></button>
+        <button class="ptab" data-p="bienestar" role="tab" aria-selected="false"><span class="dot"></span><span>Bienestar</span><span class="num">03</span></button>
+        <button class="ptab" data-p="felicidad" role="tab" aria-selected="false"><span class="dot"></span><span>Felicidad</span><span class="num">04</span></button>
+      </div>
+
+      <div class="ppanel" id="panel" role="tabpanel">
+        <div class="ppanel-in" id="panel-in"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCIA -->
+<section id="experiencia">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">El método Amador</span>
+      <h2>Diseñamos la experiencia <em>completa</em>, no momentos sueltos.</h2>
+    </div>
+    <div class="xx">
+      <div class="xcard reveal">
+        <span class="step">Escuchamos</span>
+        <h3>Diagnóstico</h3>
+        <p>Medimos clima, motivación y los momentos clave del viaje del empleado. Datos reales antes de tocar nada.</p>
+      </div>
+      <div class="xcard reveal">
+        <span class="step">Diseñamos</span>
+        <h3>Estrategia a medida</h3>
+        <p>Un plan que une cultura, talento y bienestar con los objetivos del negocio. Sin recetas genéricas.</p>
+      </div>
+      <div class="xcard reveal">
+        <span class="step">Acompañamos</span>
+        <h3>Implementación</h3>
+        <p>Ejecutamos junto a tus líderes y medimos el impacto. La felicidad también se gestiona y se mejora.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="wrap">
+    <span class="eyebrow">Conversemos</span>
+    <h2>¿Y si tu equipo <em>amara</em> venir a trabajar?</h2>
+    <p>Cuéntanos qué está pasando en tu organización. Te respondemos directo por WhatsApp y armamos juntos el primer paso.</p>
+    <a class="wa-big" href="https://wa.me/51946846598" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.515 5.26l-.999 3.648 3.973-1.607zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+      +51 946 846 598
+    </a>
+
+    <div class="socials">
+      <a class="soc" href="https://wa.me/51946846598" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.515 5.26l-.999 3.648 3.973-1.607zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg></a>
+      <a class="soc" href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.86s0 3.6-.07 4.86c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.86.07s-3.6 0-4.86-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 01-1.38-.9 3.7 3.7 0 01-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.86c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.14 0-3.51.01-4.75.07-.89.04-1.38.19-1.7.32-.43.16-.73.36-1.05.68-.32.32-.52.62-.68 1.05-.13.32-.28.81-.32 1.7-.06 1.24-.07 1.61-.07 4.75s.01 3.51.07 4.75c.04.89.19 1.38.32 1.7.16.43.36.73.68 1.05.32.32.62.52 1.05.68.32.13.81.28 1.7.32 1.24.06 1.61.07 4.75.07s3.51-.01 4.75-.07c.89-.04 1.38-.19 1.7-.32.43-.16.73-.36 1.05-.68.32-.32.52-.62.68-1.05.13-.32.28-.81.32-1.7.06-1.24.07-1.61.07-4.75s-.01-3.51-.07-4.75c-.04-.89-.19-1.38-.32-1.7a2.8 2.8 0 00-.68-1.05 2.8 2.8 0 00-1.05-.68c-.32-.13-.81-.28-1.7-.32C15.51 4.01 15.14 4 12 4zm0 3.06A4.94 4.94 0 1012 17a4.94 4.94 0 000-9.88zm0 8.14A3.2 3.2 0 1112 8.8a3.2 3.2 0 010 6.4zm6.3-8.34a1.15 1.15 0 11-2.3 0 1.15 1.15 0 012.3 0z"/></svg></a>
+      <a class="soc" href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.69.24 2.69.24v2.97h-1.52c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/></svg></a>
+      <a class="soc" href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 110-4.13 2.07 2.07 0 010 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.8 0 0 .78 0 1.74v20.52C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.74V1.74C24 .78 23.2 0 22.22 0z"/></svg></a>
+      <a class="soc" href="https://tiktok.com" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64c.3 0 .59.04.86.13V9.4a6.33 6.33 0 00-1-.08A6.34 6.34 0 005 20.1a6.34 6.34 0 0010.86-4.43V8.69a8.16 8.16 0 004.77 1.52V6.76c-.39 0-.78-.02-1.04-.07z"/></svg></a>
+      <a class="soc" href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3.02 3.02 0 00-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.51A3.02 3.02 0 00.5 6.2C0 8.08 0 12 0 12s0 3.92.5 5.8a3.02 3.02 0 002.12 2.14c1.88.51 9.38.51 9.38.51s7.5 0 9.38-.51a3.02 3.02 0 002.12-2.14C24 15.92 24 12 24 12s0-3.92-.5-5.8zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg></a>
+      <a class="soc" href="https://x.com" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.4l-5.8-7.58-6.63 7.58H.49l8.6-9.83L0 1.15h7.59l5.24 6.93 6.07-6.93zm-1.29 19.5h2.04L6.49 3.24H4.3L17.61 20.65z"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <a href="#top" class="brand"><span class="mark">♡</span>Amador</a>
+      <div class="foot-links">
+        <a href="#pilares">Cultura</a>
+        <a href="#pilares">Talento</a>
+        <a href="#pilares">Bienestar</a>
+        <a href="#pilares">Felicidad</a>
+        <a href="#experiencia">Experiencia</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+    </div>
+    <div class="copy">© <span id="year"></span> Amador · Employee Experience · Lima, Perú · WhatsApp +51 946 846 598</div>
+  </div>
+</footer>
+
+<script>
+  // datos de pilares
+  const data = {
+    cultura:{accent:'#FF5D5D',soft:'#FFE3DE',big:'01',title:'Cultura que se vive',
+      text:'Construimos valores que dejan de ser un poster en la pared. Definimos cómo se trabaja, cómo se decide y cómo se celebra, para que la cultura sea algo que tu gente reconoce todos los días.',
+      tags:['Valores y propósito','Rituales de equipo','Liderazgo consciente','Comunicación interna']},
+    talento:{accent:'#F5A623',soft:'#FDEBCB',big:'02',title:'Talento que crece contigo',
+      text:'Atraemos, desarrollamos y retenemos a las personas que mueven tu negocio. Planes de carrera reales, onboarding que enamora y feedback que de verdad hace crecer.',
+      tags:['Atracción y onboarding','Planes de carrera','Evaluación y feedback','Liderazgo y mentoría']},
+    bienestar:{accent:'#3FA98A',soft:'#D6F0E7',big:'03',title:'Bienestar integral',
+      text:'Salud física, mental y emocional tratadas en serio. Diseñamos programas de bienestar que la gente sí usa, porque parten de lo que tu equipo realmente necesita.',
+      tags:['Salud mental','Equilibrio vida-trabajo','Hábitos saludables','Espacios seguros']},
+    felicidad:{accent:'#E85D8E',soft:'#FBDDE9',big:'04',title:'Felicidad que se mide',
+      text:'La felicidad en el trabajo no es un extra: es estrategia. Medimos motivación y compromiso, y convertimos esos datos en acciones que mejoran resultados y reducen la rotación.',
+      tags:['Clima y engagement','Reconocimiento','Indicadores de felicidad','Reducción de rotación']}
+  };
+
+  const root=document.documentElement;
+  const panelIn=document.getElementById('panel-in');
+  const tabs=document.querySelectorAll('.ptab');
+
+  function render(key){
+    const d=data[key];
+    root.style.setProperty('--accent',d.accent);
+    root.style.setProperty('--accent-soft',d.soft);
+    panelIn.innerHTML='<div class="fade"><div class="big">'+d.big+'</div><h3>'+d.title+'</h3><p>'+d.text+'</p><ul>'+d.tags.map(t=>'<li>'+t+'</li>').join('')+'</ul></div>';
+  }
+  tabs.forEach(t=>{
+    t.addEventListener('click',()=>{
+      tabs.forEach(x=>{x.classList.remove('active');x.setAttribute('aria-selected','false')});
+      t.classList.add('active');t.setAttribute('aria-selected','true');
+      render(t.dataset.p);
+    });
+  });
+  render('cultura');
+
+  // menu movil
+  const burger=document.getElementById('burger');
+  const overlay=document.getElementById('overlay');
+  burger.addEventListener('click',()=>{
+    const open=burger.classList.toggle('open');
+    overlay.classList.toggle('open',open);
+    overlay.setAttribute('aria-hidden',!open);
+    document.body.style.overflow=open?'hidden':'';
+  });
+  overlay.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+    burger.classList.remove('open');overlay.classList.remove('open');document.body.style.overflow='';
+  }));
+
+  // header shadow + reveal
+  const header=document.querySelector('header');
+  window.addEventListener('scroll',()=>header.classList.toggle('scrolled',window.scrollY>10));
+
+  const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  document.getElementById('year').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
